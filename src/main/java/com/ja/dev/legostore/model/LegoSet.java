@@ -21,7 +21,7 @@ public class LegoSet {
 	private String id;
 	private String name;
 	
-	// frequently accessed fiels
+	// frequently accessed field
 	@Indexed(direction = IndexDirection.ASCENDING)
 	private String theme;
 	private LegoSetDifficulty difficulty;
@@ -31,7 +31,6 @@ public class LegoSet {
 	
 	public LegoSet(String name, String theme, LegoSetDifficulty difficulty, DeliveryInfo deliveryInfo,
 			Collection<ProductReview> reviews) {
-		super();
 		this.name = name;
 		this.theme = theme;
 		this.difficulty = difficulty;
