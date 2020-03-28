@@ -2,9 +2,7 @@ package com.ja.dev.legostore.api;
 
 import java.util.Collection;
 
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,23 +13,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ja.dev.legostore.model.LegoSet;
+import com.ja.dev.legostore.persistence.LegoSetRepository;
 
 @RestController
 @RequestMapping("/api")
 public class LegoStoreController {
 	
-	private MongoTemplate mongoTemplate;
-	
-	public LegoStoreController(MongoTemplate mongoTemplate) {
-		this.mongoTemplate = mongoTemplate;
-	}
+	@Autowired
+	private LegoSetRepository legoSetRepository;
 
 	@PostMapping
 	public void insert(@RequestBody LegoSet legoSet) {
 		// If object has NO Id, new Id created
 		// If object has Id, and present in collection
 		// throws Duplicate Key Exception, else insert
-		this.mongoTemplate.insert(legoSet);
+		this.legoSetRepository.insert(legoSet);
 	}
 	
 	@PutMapping
@@ -39,18 +35,18 @@ public class LegoStoreController {
 		// If object has no Id, new Id generated
 		// if object has Id, update document if present
 		// else save
-		this.mongoTemplate.save(legoSet);
+		this.legoSetRepository.save(legoSet);
 	}
 	
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable String id) {
-		this.mongoTemplate.remove(new Query(Criteria.where("id").is(id)), LegoSet.class);
+		this.legoSetRepository.deleteById(id);
 	}
 	
 	
 	@GetMapping("/all")
 	public Collection<LegoSet> findAll() {
-		Collection<LegoSet> legoSets = this.mongoTemplate.findAll(LegoSet.class);
+		Collection<LegoSet> legoSets = this.legoSetRepository.findAll();
 		return legoSets;
 	}
 	
