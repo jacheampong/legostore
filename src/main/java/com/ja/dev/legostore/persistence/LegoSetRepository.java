@@ -25,5 +25,8 @@ public interface LegoSetRepository extends MongoRepository<LegoSet,String> {
 	
 	@Query("{'reviews.rating' : {$eq : 5} }")
 	Collection<LegoSet> findAllByGreatReviews();
+	
+	@Query("{'deliveryInfo.inStock' : true }")
+	Collection<LegoSet> findAllInStock();
 
 }

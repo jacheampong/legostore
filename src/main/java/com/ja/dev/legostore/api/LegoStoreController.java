@@ -92,7 +92,7 @@ public class LegoStoreController {
 	}
 	
 	/**
-	 * byDeliveryFeeLessThan - find Documents By a field in Sub-document. Used @Query
+	 * byDeliveryFeeLessThan - Find Documents By a field in Sub-document. Used @Query
 	 * @param price
 	 * @return Collection<LegoSet>
 	 */
@@ -109,6 +109,15 @@ public class LegoStoreController {
 	@GetMapping("/greatreviews")
 	public Collection<LegoSet> byGreatReviews() {
 		return this.legoSetRepository.findAllByGreatReviews();
+	}
+	
+	/**
+	 * findAllInStock - Find all LegoSet in stock
+	 * @return
+	 */
+	@GetMapping("/instock")
+	public Collection<LegoSet> findAllInStock() {
+		return this.legoSetRepository.findAllInStock();
 	}
 	
 
