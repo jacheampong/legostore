@@ -120,5 +120,14 @@ public class LegoStoreController {
 		return this.legoSetRepository.findAllInStock();
 	}
 	
+	/**
+	 * findAllNotStarWars
+	 * @return
+	 */
+	@GetMapping("/notStarWarsTheme")
+	public Collection<LegoSet> findAllNotStarWars(){
+	    return this.legoSetRepository.findAllByThemeIsNot("Star Wars");
+	}
+	
 
 }
