@@ -125,7 +125,7 @@ public class LegoStoreController {
 	 * @return
 	 */
 	@GetMapping("/notStarWarsTheme")
-	public Collection<LegoSet> findAllNotStarWars(){
+	public Collection<LegoSet> findAllNotStarWars() {
 	    return this.legoSetRepository.findAllByThemeIsNot("Star Wars");
 	}
 	

@@ -6,6 +6,8 @@ import java.util.Collection;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.index.TextIndexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -19,6 +21,7 @@ public class LegoSet {
 	
 	@Id
 	private String id;
+	@TextIndexed
 	private String name;
 	
 	// frequently accessed field
@@ -29,12 +32,18 @@ public class LegoSet {
 	private DeliveryInfo deliveryInfo;
 	private Collection<ProductReview> reviews = new ArrayList<>();
 	
+	@DBRef
+	private PaymentOption paymentOption;
+	
+	public LegoSet() {}
+	
 	public LegoSet(String name, String theme, LegoSetDifficulty difficulty, DeliveryInfo deliveryInfo,
-			Collection<ProductReview> reviews) {
+			Collection<ProductReview> reviews, PaymentOption paymentOption) {
 		this.name = name;
 		this.theme = theme;
 		this.difficulty = difficulty;
 		this.deliveryInfo = deliveryInfo;
+		this.paymentOption = paymentOption;
 		if (reviews != null) {
 			this.reviews = reviews;
 		}
@@ -88,8 +97,15 @@ public class LegoSet {
 	public void setReviews(Collection<ProductReview> reviews) {
 		this.reviews = reviews;
 	}
+
+	public PaymentOption getPaymentOption() {
+		return paymentOption;
+	}
+
+	public void setPaymentOption(PaymentOption paymentOption) {
+		this.paymentOption = paymentOption;
+	}
 	
-	
-	
+		
 
 }
